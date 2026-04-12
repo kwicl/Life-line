@@ -1,7 +1,16 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "functions": {
+    "api/*.ts": {
+      "runtime": "@vercel/node"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/server.ts" },
+    { "source": "/api/config", "destination": "/api/config" },
+    { "source": "/api/milestones", "destination": "/api/milestones" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
