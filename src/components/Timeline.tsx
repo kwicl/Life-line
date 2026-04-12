@@ -410,7 +410,7 @@ export default function Timeline() {
       </div>
 
       {/* Futuristic Watermark Overlay */}
-      <div className="absolute left-6 lg:left-12 bottom-6 lg:bottom-10 z-50 flex flex-col gap-2">
+      <div className="absolute left-6 lg:left-12 bottom-6 lg:bottom-10 mb-[env(safe-area-inset-bottom)] z-50 flex flex-col gap-2">
         <div className="flex items-center gap-3">
           <div className="w-1.5 h-1.5 rounded-full bg-electric-blue animate-pulse shadow-[0_0_10px_#00d4ff]" />
           <div className="text-[9px] lg:text-[10px] font-mono text-white/10 tracking-[0.3em] uppercase">

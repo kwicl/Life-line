@@ -6,7 +6,7 @@ interface TopBarProps {
 
 export default function TopBar({ onMenuClick }: TopBarProps) {
   return (
-    <header className="h-16 border-b border-white/5 bg-cosmic-black/40 backdrop-blur-2xl flex items-center justify-between px-4 lg:px-8 z-50 relative overflow-hidden">
+    <header className="h-20 lg:h-24 bg-cosmic-black/80 backdrop-blur-2xl border-b border-white/5 px-4 lg:px-12 flex items-center justify-between sticky top-0 z-[100] pt-[env(safe-area-inset-top)] relative overflow-hidden">
       {/* Top Glow Line */}
       <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-electric-blue/40 to-transparent" />
       
