@@ -409,19 +409,25 @@ export default function Timeline() {
         <button className="text-white/30 hover:text-electric-blue transition-all hover:scale-110"><Search className="w-4 h-4 lg:w-5 lg:h-5" /></button>
       </div>
 
-      {/* Futuristic Watermark Overlay */}
+      {/* KWICL Watermark */}
       <div className="absolute left-6 lg:left-12 bottom-6 lg:bottom-10 mb-[env(safe-area-inset-bottom)] z-50 flex flex-col gap-2">
         <div className="flex items-center gap-3">
-          <div className="w-1.5 h-1.5 rounded-full bg-electric-blue animate-pulse shadow-[0_0_10px_#00d4ff]" />
+          <div className="w-1.5 h-1.5 rounded-full bg-accent-red animate-pulse shadow-[0_0_10px_#ff3b47]" />
           <div className="text-[9px] lg:text-[10px] font-mono text-white/10 tracking-[0.3em] uppercase">
             System Active • LifeLine v2.0
           </div>
         </div>
         <div className="flex flex-col">
-          <span className="text-[18px] lg:text-[24px] font-display font-black text-electric-blue text-glow tracking-[0.5em] animate-pulse">
+          <span
+            className="text-[22px] lg:text-[28px] font-display font-black tracking-[0.5em] animate-pulse"
+            style={{
+              color: '#ff3b47',
+              textShadow: '0 0 20px #ff3b47, 0 0 40px #ff3b4788, 0 0 80px #ff3b4744',
+            }}
+          >
             KWICL
           </span>
-          <div className="h-[1px] w-full bg-gradient-to-r from-electric-blue to-transparent mt-1 shadow-[0_0_10px_#00d4ff]" />
+          <div className="h-[1px] w-full mt-1" style={{ background: 'linear-gradient(to right, #ff3b47, transparent)', boxShadow: '0 0 10px #ff3b47' }} />
         </div>
       </div>
     </main>
