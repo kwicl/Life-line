@@ -38,24 +38,45 @@ export default function Sidebar({ onMilestoneAdded, isOpen, onClose }: SidebarPr
     if (!file) return;
 
     setUploading(true);
-    const formDataUpload = new FormData();
-    formDataUpload.append('image', file);
-
     try {
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formDataUpload,
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target?.result as string;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            // Resize image to ensure Base64 string fits inside Google Sheets 50,000 character limit
+            const MAX_SIZE = 400;
+            if (width > height) {
+              if (width > MAX_SIZE) {
+                height *= MAX_SIZE / width;
+                width = MAX_SIZE;
+              }
+            } else {
+              if (height > MAX_SIZE) {
+                width *= MAX_SIZE / height;
+                height = MAX_SIZE;
+              }
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx?.drawImage(img, 0, 0, width, height);
+            // Compress heavily using WebP
+            resolve(canvas.toDataURL('image/webp', 0.6));
+          };
+          img.onerror = reject;
+        };
+        reader.onerror = reject;
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        setFormData({ ...formData, imageUrl: data.imageUrl });
-      } else {
-        alert('Upload failed');
-      }
+      setFormData({ ...formData, imageUrl: dataUrl });
     } catch (error) {
-      console.error('Upload error:', error);
-      alert('Upload failed');
+      console.error('Image processing error:', error);
+      alert('Failed to process image. Try a smaller or different image.');
     } finally {
       setUploading(false);
     }
