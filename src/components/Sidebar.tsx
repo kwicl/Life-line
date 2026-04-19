@@ -141,7 +141,7 @@ export default function Sidebar({ onMilestoneAdded, isOpen, onClose }: SidebarPr
       ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       w-full max-w-[340px] bg-sidebar-bg backdrop-blur-3xl border-r border-white/5 p-8 flex flex-col gap-8 overflow-y-auto h-full lg:h-[calc(100vh-64px)] relative
     `}>
-      {/* Side Glow */}
+      {/* Side Glow Effect */}
       <div className="absolute right-0 inset-y-0 w-[1px] bg-gradient-to-b from-transparent via-electric-blue/20 to-transparent" />
       
       <div className="space-y-2">
