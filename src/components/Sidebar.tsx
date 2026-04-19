@@ -84,19 +84,11 @@ export default function Sidebar({ onMilestoneAdded, isOpen, onClose }: SidebarPr
   };
 
   const handleSubmit = async () => {
-    if (!formData.title || !formData.value || !formData.date) {
-      alert('Please fill in title, value and date');
-      return;
-    }
-
-    if (!config.hasConfig) {
-      alert('Google Sheets is not configured. Please set up GOOGLE_SPREADSHEET_ID, GOOGLE_SERVICE_ACCOUNT_EMAIL, and GOOGLE_PRIVATE_KEY in your .env file.');
-      return;
-    }
+    if (!formData.title || !formData.value || !formData.date) return;
+    if (!config.hasConfig) return;
 
     setLoading(true);
     try {
-      // Extract year from date for backward compatibility if needed
       const yearMatch = formData.date.match(/\d{4}$/);
       const year = yearMatch ? parseInt(yearMatch[0]) : 2026;
 
@@ -123,13 +115,9 @@ export default function Sidebar({ onMilestoneAdded, isOpen, onClose }: SidebarPr
           imageUrl: 'https://picsum.photos/seed/milestone/400/300',
           color: '#00d4ff'
         });
-      } else {
-        const err = await response.json();
-        alert(err.error || 'Failed to add milestone');
       }
     } catch (error) {
       console.error('Error adding milestone:', error);
-      alert('Failed to connect to server');
     } finally {
       setLoading(false);
     }
@@ -322,14 +310,20 @@ export default function Sidebar({ onMilestoneAdded, isOpen, onClose }: SidebarPr
 
       <div className="mt-auto pt-4">
         <motion.button 
-          whileHover={{ scale: 1.02, boxShadow: '0 0 30px rgba(0, 212, 255, 0.4)' }}
-          whileTap={{ scale: 0.98 }}
+          whileHover={config.hasConfig ? { scale: 1.02, boxShadow: '0 0 30px rgba(0, 212, 255, 0.4)' } : {}}
+          whileTap={config.hasConfig ? { scale: 0.98 } : {}}
           onClick={handleSubmit}
-          disabled={loading}
-          className="w-full bg-electric-blue text-cosmic-black font-display font-black text-sm py-4 rounded-2xl flex items-center justify-center gap-3 transition-all uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={loading || !config.hasConfig}
+          className="w-full bg-electric-blue text-cosmic-black font-display font-black text-sm py-4 rounded-2xl flex items-center justify-center gap-3 transition-all uppercase tracking-widest disabled:opacity-40 disabled:grayscale disabled:cursor-not-allowed shadow-xl shadow-electric-blue/10"
         >
-          {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Target className="w-5 h-5" />}
-          Deploy Milestone
+          {loading ? (
+            <Loader2 className="w-5 h-5 animate-spin" />
+          ) : !config.hasConfig ? (
+            <AlertCircle className="w-5 h-5" />
+          ) : (
+            <Target className="w-5 h-5" />
+          )}
+          {!config.hasConfig ? 'Connection Required' : 'Deploy Milestone'}
         </motion.button>
         <p className="text-center text-[8px] font-mono text-white/10 mt-4 uppercase tracking-[0.4em]">Secure Encryption Active</p>
       </div>

@@ -135,7 +135,7 @@ export default function CalendarPicker({ value, onChange }: CalendarPickerProps)
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white text-left focus:outline-none focus:border-electric-blue/50 transition-all cursor-pointer hover:bg-white/[0.05]"
+        className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-9 pr-2 py-3 text-[13px] font-mono font-medium text-white text-left focus:outline-none focus:border-electric-blue/50 transition-all cursor-pointer hover:bg-white/[0.05] tracking-tight whitespace-nowrap overflow-hidden"
       >
         {value}
       </button>
