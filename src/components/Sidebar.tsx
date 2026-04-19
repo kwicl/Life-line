@@ -1,4 +1,5 @@
-import { Upload, Plus, Euro, Calendar, FileText, ChevronDown, Zap, Target, Loader2, Settings, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Upload, Plus, Euro, FileText, ChevronDown, Zap, Target, Loader2, Settings, CheckCircle2, AlertCircle } from 'lucide-react';
+import CalendarPicker from './CalendarPicker';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useRef, useEffect } from 'react';
 
@@ -168,16 +169,10 @@ export default function Sidebar({ onMilestoneAdded, isOpen, onClose }: SidebarPr
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="text-[10px] font-mono font-bold text-white/30 uppercase tracking-[0.15em]">Temporal Node</label>
-            <div className="relative">
-              <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-electric-blue/40" />
-              <input 
-                type="text" 
-                value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                placeholder="JJ/MM/AAAA"
-                className="w-full bg-white/[0.03] border border-white/10 rounded-xl pl-10 pr-4 py-3 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-electric-blue/50 transition-all"
-              />
-            </div>
+            <CalendarPicker
+              value={formData.date}
+              onChange={(date) => setFormData({ ...formData, date })}
+            />
           </div>
           <div className="space-y-2">
             <label className="text-[10px] font-mono font-bold text-white/30 uppercase tracking-[0.15em]">Category</label>
